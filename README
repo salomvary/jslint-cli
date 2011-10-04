@@ -1,0 +1,28 @@
+Command Line Wrapper for Crockford's JSLint
+
+Wrapper script adopted from MacPorts:
+https://trac.macports.org/browser/trunk/dports/lang/jslint
+
+Dependencies: Tracemonkey (might work with other JS engines too).
+
+Install on Mac:
+ port install tracemonkey +fileobject
+ Save these files to your path (e.g. ~/bin):
+  https://raw.github.com/salomvary/jslint-cli/master/jslint
+  https://raw.github.com/douglascrockford/JSLint/master/jslint.js
+ Enjoy!
+
+Usage:
+ jslint myscript.js option[=true]
+
+Configuration: 
+ Puth option=value pairs into ~/.jslintrc (one per line).
+ See docs for possible options:
+ http://www.jslint.com/lint.html#options
+
+Documentation:
+ http://www.jslint.com/lint.html
+
+TODO:
+ Install script
+ Test on other operating systems and engines
