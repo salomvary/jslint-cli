@@ -1,0 +1,51 @@
+#!/opt/local/bin/js
+
+load(new File(environment._).parent + File.separator + 'jslint.js');
+
+if (!arguments[0] || arguments[0] === "-h" || arguments[0] === "--help") {
+	print('Usage : "jslint myscript.js option[=true]"');
+} else {
+	var file = new File(arguments[0]),
+		config = new File(environment.HOME + File.separator + '.jslintrc'),
+		i,
+		script,
+		configOptions,
+		option,
+		options = {};
+
+	// read input
+	file.open("read", "text");
+	script = file.readAll();
+
+	// read config file
+	if (config.exists) {
+		config.open("read", "text");
+		configOptions = config.readAll();
+		for (i = 0; i < configOptions.length; i = i + 1) {
+			option = configOptions[i].split('=');
+			options[option[0]] = option[1] === 'false' ? false : option[1] === 'true' ? true : option[1];
+		}
+	}
+
+	// parse config arguments
+	for (i = 1; i < arguments.length; i = i + 1) {
+		option = arguments[i].split('=');
+		options[option[0]] = option[1] === 'false' ? false : option[1] === 'true' ? true : option[1];
+	}
+
+	// run jslint
+	if (!JSLINT(script, options)) {
+		for (i = 0; i < JSLINT.errors.length; i = i + 1) {
+			var e = JSLINT.errors[i];
+			if (e) {
+				print('Error at line ' + (e.line + 1) + ' character ' + (e.character + 1) + ': ' + e.reason);
+				if (e.evidence) {
+					print((e.evidence).replace(/^\s+/g, '').replace(/\s+$/g, ''));
+				}
+				print('');
+			}
+		}
+	} else {
+		print("No error found");
+	}
+}
