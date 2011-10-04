@@ -16,7 +16,7 @@ Usage:
  jslint myscript.js option[=true]
 
 Configuration: 
- Puth option=value pairs into ~/.jslintrc (one per line).
+ Put option=value pairs into ~/.jslintrc (one per line).
  See docs for possible options:
  http://www.jslint.com/lint.html#options
 
