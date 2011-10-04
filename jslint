@@ -1,4 +1,4 @@
-#!/opt/local/bin/js
+#!/usr/bin/env js
 
 load(new File(environment._).parent + File.separator + 'jslint.js');
 
