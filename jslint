@@ -2,6 +2,18 @@
 
 load(new File(environment._).parent + File.separator + 'jslint.js');
 
+function parseOption(option) {
+	if(option === 'false') {
+		return false;
+	} else if(option === 'true') {
+		return true;
+	} else if((option.indexOf('[') === 0) && (option.indexOf(']') === (option.length - 1))) {
+		return option.substring(1,option.length - 1).split(',');
+	} else {
+		return option;
+	}
+}
+
 if (!arguments[0] || arguments[0] === "-h" || arguments[0] === "--help") {
 	print('Usage : "jslint myscript.js option[=true]"');
 } else {
@@ -23,14 +35,14 @@ if (!arguments[0] || arguments[0] === "-h" || arguments[0] === "--help") {
 		configOptions = config.readAll();
 		for (i = 0; i < configOptions.length; i = i + 1) {
 			option = configOptions[i].split('=');
-			options[option[0]] = option[1] === 'false' ? false : option[1] === 'true' ? true : option[1];
+			options[option[0]] = parseOption(option[1]);
 		}
 	}
 
 	// parse config arguments
 	for (i = 1; i < arguments.length; i = i + 1) {
 		option = arguments[i].split('=');
-		options[option[0]] = option[1] === 'false' ? false : option[1] === 'true' ? true : option[1];
+		options[option[0]] = parseOption(option[1]);
 	}
 
 	// run jslint
